@@ -11,9 +11,7 @@ $ bundle exec foodcritic -C . | bundle exec foodcritic-junit
 
 ## Install
 
-```
-gem 'foodcritic-junit'
-```
+`gem install foodcritic-junit` or in your Gemfile `gem 'foodcritic-junit'`
 
 ## Options
 
