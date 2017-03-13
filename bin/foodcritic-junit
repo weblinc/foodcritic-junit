@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require 'bundler/setup'
+require 'foodcritic/junit'
+
+Foodcritic::Junit::Outputter.new(ARGF).run
