@@ -45,7 +45,7 @@ module Foodcritic
             @current_violation = violation
             @current_violation_lines = []
           else
-            current_violation_lines << line.encode(xml: :attr) if current_violation_lines
+            current_violation_lines << line if current_violation_lines
           end
         end
       end
@@ -64,7 +64,7 @@ module Foodcritic
         <<-EOS
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="#{cookbook_name}" timestamp="#{Time.now.utc.iso8601}">
+  <testsuite name=#{cookbook_name.encode(xml: :attr)} timestamp=#{Time.now.utc.iso8601.to_s.encode(xml: :attr)}>
     #{violations_as_xml}
   </testsuite>
 </testsuites>
@@ -80,12 +80,13 @@ module Foodcritic
       end
 
       def xml_for_violation(violation)
-        name = "#{violation[:rule]}: #{violation[:message]}"
-        file_name = violation[:file_name]
+        name = "#{violation[:rule]}: #{violation[:message]}".encode(xml: :attr)
+        file_name = violation[:file_name].encode(xml: :attr)
+        location = "Located in #{violation[:file_name]}".encode(xml: :attr)
         <<-EOS
-      <testcase name="#{name}" classname="#{file_name}" assertions="0" time="0">
-        <error type="#{name}" message="Located in #{file_name}">
-#{violation[:lines]}
+      <testcase name=#{name} classname=#{file_name} assertions="0" time="0">
+        <error type=#{name} message=#{location}>
+          #{violation[:lines].encode(xml: :text)}
         </error>
       </testcase>
         EOS
