@@ -45,7 +45,7 @@ module Foodcritic
             @current_violation = violation
             @current_violation_lines = []
           else
-            current_violation_lines << line if current_violation_lines
+            current_violation_lines << line.lstrip if current_violation_lines
           end
         end
       end
