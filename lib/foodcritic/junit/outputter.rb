@@ -64,7 +64,7 @@ module Foodcritic
         <<-EOS
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="#{cookbook_name.encode(xml: :attr)}" timestamp="#{Time.now.utc.iso8601}">
+  <testsuite name="#{cookbook_name}" timestamp="#{Time.now.utc.iso8601}">
     #{violations_as_xml}
   </testsuite>
 </testsuites>
@@ -80,8 +80,8 @@ module Foodcritic
       end
 
       def xml_for_violation(violation)
-        name = "#{violation[:rule]}: #{violation[:message]}".encode(xml: :attr)
-        file_name = violation[:file_name].encode(xml: :attr)
+        name = "#{violation[:rule]}: #{violation[:message]}"
+        file_name = violation[:file_name]
         <<-EOS
       <testcase name="#{name}" classname="#{file_name}" assertions="0" time="0">
         <error type="#{name}" message="Located in #{file_name}">
