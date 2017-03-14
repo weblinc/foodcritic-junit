@@ -64,9 +64,9 @@ module Foodcritic
         <<-EOS
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name=#{cookbook_name.encode(xml: :attr)} timestamp=#{Time.now.utc.iso8601.to_s.encode(xml: :attr)}>
-    #{violations_as_xml}
-  </testsuite>
+<testsuite name=#{cookbook_name.encode(xml: :attr)} timestamp=#{Time.now.utc.iso8601.to_s.encode(xml: :attr)}>
+#{violations_as_xml}
+</testsuite>
 </testsuites>
         EOS
       end
@@ -84,11 +84,11 @@ module Foodcritic
         file_name = violation[:file_name].encode(xml: :attr)
         location = "Located in #{violation[:file_name]}".encode(xml: :attr)
         <<-EOS
-      <testcase name=#{name} classname=#{file_name} assertions="0" time="0">
-        <error type=#{name} message=#{location}>
-          #{violation[:lines].encode(xml: :text)}
-        </error>
-      </testcase>
+<testcase name=#{name} classname=#{file_name} assertions="0" time="0">
+<error type=#{name} message=#{location}>
+#{violation[:lines].encode(xml: :text)}
+</error>
+</testcase>
         EOS
       end
     end
