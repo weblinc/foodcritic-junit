@@ -9,6 +9,8 @@ $ bundle exec foodcritic -C . | bundle exec foodcritic-junit
 => Wrote test/reports/report.xml
 ```
 
+![Example JUNIT output](http://i.imgur.com/ZoOI3yk.png?1)
+
 ## Install
 
 `gem install foodcritic-junit` or in your Gemfile `gem 'foodcritic-junit'`
