@@ -1,3 +1,3 @@
-../my_cookbook/templates/default/nginx.conf.erb
+./spec/spec_helper.rb
 FC001: Use strings in preference to symbols to access node attributes
    1|user <%= node[:nginx][:user] %>;
