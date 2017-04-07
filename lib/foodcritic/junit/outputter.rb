@@ -25,7 +25,6 @@ module Foodcritic
 
       def store_violation
         if current_violation
-          puts "current file is now #{current_file_name}, and #{current_violation}"
           violations.push({
             rule: current_violation[:rule],
             message: current_violation[:message],
