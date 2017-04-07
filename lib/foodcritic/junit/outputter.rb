@@ -23,31 +23,41 @@ module Foodcritic
         write_output
       end
 
+      def store_violation
+        if current_violation
+          puts "current file is now #{current_file_name}, and #{current_violation}"
+          violations.push({
+            rule: current_violation[:rule],
+            message: current_violation[:message],
+            file_name: current_file_name,
+            lines: current_violation_lines.join("\n")
+          })
+        end
+      end
+
       def parse_violations
         input.each_line do |line|
           line.chomp!
 
-          @current_file_name = line if File.exist?(line)
+          if File.exist?(line)
+            store_violation
+            @current_violation = nil
+            @current_violation_lines = []
+            @current_file_name = line
+          end
 
           violation = line.match(/(?<rule>[A-Z]+\d+?):\s(?<message>.+?)$/)
 
           if violation
             # We got a new violation, store the current one + it's lines
-            if current_violation
-              violations.push({
-                rule: current_violation[:rule],
-                message: current_violation[:message],
-                file_name: current_file_name,
-                lines: current_violation_lines.join("\n")
-              })
-            end
-
+            store_violation
             @current_violation = violation
             @current_violation_lines = []
           else
             current_violation_lines << line.encode(xml: :attr) if current_violation_lines
           end
         end
+        store_violation
       end
 
       def output_file_path
