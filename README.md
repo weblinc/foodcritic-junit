@@ -1,5 +1,4 @@
-# Foodcritic::Junit
-
+# Foodcritic::Junit ![Build Status](https://travis-ci.org/weblinc/foodcritic-junit.svg?branch=master)
 Parses foodcritic output (with context) into a JUnit XML file.
 
 ## Usage
