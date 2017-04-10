@@ -7,3 +7,5 @@ begin
   RSpec::Core::RakeTask.new(:test)
 rescue LoadError
 end
+
+task default: [:test]
