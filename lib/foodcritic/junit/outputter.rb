@@ -38,7 +38,7 @@ module Foodcritic
         input.each_line do |line|
           line.chomp!
 
-          if File.exist?(line)
+          if File.exist?(line) || %w(README.md LICENSE).include?(line)
             store_violation
             @current_violation = nil
             @current_violation_lines = []
